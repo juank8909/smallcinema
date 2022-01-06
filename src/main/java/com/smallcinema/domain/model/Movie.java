@@ -12,13 +12,11 @@ public interface Movie {
 
     String getId();
 
-    String getName();
-
     String getTitle();
 
     List<String> getShowTimes();
 
-    Long getPrice();
+    Double getPrice();
 
     String getReview();
 }

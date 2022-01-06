@@ -46,6 +46,9 @@ public class MoviesApi {
                 .name("first")
                 .rating("5 stars")
                 .description("first movie")
+                .releaseDate("22 Jun 2001")
+                .iMDbRating("6/10")
+                .runTime("2 hours")
                 .build());
     }
 
@@ -54,13 +57,14 @@ public class MoviesApi {
             @ApiResponse(responseCode = "404", description = "Movie not found"),
             @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
-    @GetMapping("/{movieId}")
+    @GetMapping("/movietimes/{movieId}")
     public ResponseEntity<ImmutableMovieDTO> getMovieTimesById(@PathVariable("movieId") String movieId) {
         return this.movieService.getMovie(movieId)
                 .map(a -> a.map(movie -> ImmutableMovieDTO
                         .builder()
-                        .name(movie.getName())
+                        .name(movie.getTitle())
                         .showTimes(movie.getShowTimes())
+                        .price(movie.getPrice())
                         .build()
                 ))
                 .map(responseBody -> responseBody.map(ResponseEntity::ok).getOrElse(ResponseEntity.notFound().build()))

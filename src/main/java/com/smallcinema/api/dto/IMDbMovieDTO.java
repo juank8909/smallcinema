@@ -12,7 +12,7 @@ public interface IMDbMovieDTO {
 
     String getDescription();
 
-    OffsetDateTime getReleaseDate();
+    String getReleaseDate();
 
     String getRating();
 
