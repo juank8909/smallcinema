@@ -27,5 +27,5 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://postgresql-mal:5432/postgres
-    username: user
-    password: pass
+    username: postgres
+    password: mysecretpassword

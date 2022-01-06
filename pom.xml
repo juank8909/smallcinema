@@ -196,9 +196,9 @@
                                     <value>src/main/resources/db/migration</value>
                                 </property>
                             </properties>
-                            <includes>repos.*</includes>
+                            <includes>small_cinema.*</includes>
                             <excludes>flyway_schema_history</excludes>
-                            <inputSchema>repos</inputSchema>
+                            <inputSchema>small_cinema</inputSchema>
                         </database>
                         <generate>
                             <generatedAnnotation>true</generatedAnnotation>
