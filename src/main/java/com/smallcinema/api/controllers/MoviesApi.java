@@ -25,7 +25,7 @@ public class MoviesApi {
             @ApiResponse(responseCode = "404", description = "Movie not found"),
             @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content(schema = @Schema(implementation = Error.class)))})
     @GetMapping("/{movieId}")
-    public ResponseEntity<MovieDTO> getMovieById(@PathVariable("movieId") String consumerId) {
+    public ResponseEntity<MovieDTO> getMovieById(@PathVariable("movieId") String movieId) {
         return ResponseEntity.ok(ImmutableMovieDTO
                 .builder()
                 .name("first")

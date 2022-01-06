@@ -8,15 +8,17 @@ import java.time.OffsetDateTime;
 @Value.Immutable
 public interface MovieDTO {
 
-    @Nullable
     String getName();
 
     @Nullable
     String getDescription();
 
-    @Nullable
     OffsetDateTime getReleaseDate();
 
     String getRating();
+
+    String getIMDbRating();
+
+    String getRunTime();
 
 }
