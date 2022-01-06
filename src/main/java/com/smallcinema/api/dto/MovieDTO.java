@@ -13,12 +13,16 @@ public interface MovieDTO {
     @Nullable
     String getDescription();
 
+    @Nullable
     OffsetDateTime getReleaseDate();
 
+    @Nullable
     String getRating();
 
+    @Nullable
     String getIMDbRating();
 
+    @Nullable
     String getRunTime();
 
 }
