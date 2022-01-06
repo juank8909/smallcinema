@@ -1,6 +1,7 @@
 package com.smallcinema.controllers;
 
-import io.micrometer.core.annotation.Timed;
+import com.smallcinema.dto.ImmutableMovieDTO;
+import com.smallcinema.dto.MovieDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,8 +25,13 @@ public class MoviesApi {
             @ApiResponse(responseCode = "404", description = "Movie not found"),
             @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content(schema = @Schema(implementation = Error.class)))})
     @GetMapping("/{movieId}")
-    public ResponseEntity<String> getMovieById(@PathVariable("movieId") String consumerId) {
-        return ResponseEntity.ok("movie 123");
+    public ResponseEntity<MovieDTO> getMovieById(@PathVariable("movieId") String consumerId) {
+        return ResponseEntity.ok(ImmutableMovieDTO
+                .builder()
+                .name("first")
+                .rating("5 stars")
+                .description("first movie")
+                .build());
     }
 
 }
