@@ -1,7 +1,7 @@
-package com.smallcinema.controllers;
+package com.smallcinema.api.controllers;
 
-import com.smallcinema.dto.ImmutableMovieDTO;
-import com.smallcinema.dto.MovieDTO;
+import com.smallcinema.api.dto.ImmutableMovieDTO;
+import com.smallcinema.api.dto.MovieDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,4 +1,4 @@
-package com.smallcinema.dto;
+package com.smallcinema.api.dto;
 
 import org.springframework.validation.annotation.Validated;
 

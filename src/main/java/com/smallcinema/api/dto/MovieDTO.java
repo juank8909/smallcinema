@@ -1,0 +1,22 @@
+package com.smallcinema.api.dto;
+
+import org.immutables.value.Value;
+import org.jetbrains.annotations.Nullable;
+
+import java.time.OffsetDateTime;
+
+@Value.Immutable
+public interface MovieDTO {
+
+    @Nullable
+    String getName();
+
+    @Nullable
+    String getDescription();
+
+    @Nullable
+    OffsetDateTime getReleaseDate();
+
+    String getRating();
+
+}
