@@ -12,6 +12,8 @@ public interface Movie {
 
     String getId();
 
+    String getName();
+
     String getTitle();
 
     List<String> getShowTimes();
