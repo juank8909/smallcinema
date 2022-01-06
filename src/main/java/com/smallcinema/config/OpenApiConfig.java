@@ -10,7 +10,7 @@ public class OpenApiConfig {
 
     @Bean
     public OpenAPI consumerApiConfig() {
-        return new OpenAPI().info(new Info().title("Consumer API Spec")
-                .description("Consumer API specification (small cinema project)").version("1.0.0"));
+        return new OpenAPI().info(new Info().title("Small cinema API Spec")
+                .description("Small cinema API specification (small cinema project)").version("1.0.0"));
     }
 }
