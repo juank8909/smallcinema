@@ -8,7 +8,7 @@ import org.immutables.value.Value;
 public interface MovieRecord {
     String getId();
 
-    String getITitle();
+    String getTitle();
 
     List<String> getShowTimes();
 

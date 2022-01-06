@@ -1,7 +1,7 @@
 package com.smallcinema.api.controllers;
 
-import com.smallcinema.api.dto.ImmutableMovieDTO;
-import com.smallcinema.api.dto.MovieDTO;
+import com.smallcinema.api.dto.IMDbMovieDTO;
+import com.smallcinema.api.dto.ImmutableIMDbMovieDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,8 +26,8 @@ public class MoviesApi {
             @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
     @GetMapping("/{movieId}")
-    public ResponseEntity<MovieDTO> getMovieById(@PathVariable("movieId") String movieId) {
-        return ResponseEntity.ok(ImmutableMovieDTO
+    public ResponseEntity<IMDbMovieDTO> getMovieById(@PathVariable("movieId") String movieId) {
+        return ResponseEntity.ok(ImmutableIMDbMovieDTO
                 .builder()
                 .name("first")
                 .rating("5 stars")

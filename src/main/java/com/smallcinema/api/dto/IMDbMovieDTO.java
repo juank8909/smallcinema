@@ -6,23 +6,18 @@ import org.jetbrains.annotations.Nullable;
 import java.time.OffsetDateTime;
 
 @Value.Immutable
-public interface MovieDTO {
+public interface IMDbMovieDTO {
 
     String getName();
 
-    @Nullable
     String getDescription();
 
-    @Nullable
     OffsetDateTime getReleaseDate();
 
-    @Nullable
     String getRating();
 
-    @Nullable
     String getIMDbRating();
 
-    @Nullable
     String getRunTime();
 
 }
