@@ -172,9 +172,9 @@
                 <version>${jooq.version}</version>
                 <dependencies>
                     <dependency>
-                        <groupId>com.github.sabomichal</groupId>
-                        <artifactId>jooq-meta-postgres-flyway</artifactId>
-                        <version>${jooq.db.version}</version>
+                        <groupId>org.jooq</groupId>
+                        <artifactId>jooq-meta-extensions</artifactId>
+                        <version>3.16.1</version>
                     </dependency>
                 </dependencies>
                 <executions>
@@ -189,16 +189,13 @@
                 <configuration>
                     <generator>
                         <database>
-                            <name>com.github.sabomichal.jooq.PostgresDDLDatabase</name>
+                            <name>org.jooq.meta.extensions.ddl.DDLDatabase</name>
                             <properties>
                                 <property>
-                                    <key>locations</key>
-                                    <value>src/main/resources/db/migration</value>
+                                    <key>scripts</key>
+                                    <value>src/main/resources/db/migration/initial_schema.sql</value>
                                 </property>
                             </properties>
-                            <includes>small_cinema.*</includes>
-                            <excludes>flyway_schema_history</excludes>
-                            <inputSchema>small_cinema</inputSchema>
                         </database>
                         <target>
                             <packageName>com.smallcinema.persistence.dto.jooq</packageName>
