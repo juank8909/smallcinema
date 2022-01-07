@@ -6,15 +6,13 @@ import org.jetbrains.annotations.Nullable;
 import java.time.OffsetDateTime;
 
 @Value.Immutable
-public interface IMDbMovieDTO {
+public interface OMDbMovieDTO {
 
-    String getName();
+    String getTitle();
 
-    String getDescription();
+    String getPlot();
 
-    String getReleaseDate();
-
-    String getRating();
+    String getReleased();
 
     String getIMDbRating();
 
