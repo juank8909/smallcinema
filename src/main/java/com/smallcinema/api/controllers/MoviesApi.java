@@ -4,6 +4,7 @@ import com.smallcinema.api.dto.IMDbMovieDTO;
 import com.smallcinema.api.dto.ImmutableIMDbMovieDTO;
 import com.smallcinema.api.dto.ImmutableMovieDTO;
 import com.smallcinema.api.dto.MovieDTO;
+import com.smallcinema.client.MovieClient;
 import com.smallcinema.domain.model.ServiceError;
 import com.smallcinema.domain.service.MovieService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,10 +28,12 @@ public class MoviesApi {
     private static final Logger log = LoggerFactory.getLogger(MoviesApi.class);
 
     private final MovieService movieService;
+    private final MovieClient movieClient;
 
     @Inject
-    public MoviesApi(MovieService movieService){
+    public MoviesApi(MovieService movieService, MovieClient movieClient){
         this.movieService = movieService;
+        this.movieClient = movieClient;
     }
 
     @Operation(summary = "Find movie by id", description = "Returns a single movie", operationId = "getMovieById")
@@ -40,18 +43,22 @@ public class MoviesApi {
             @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
     @GetMapping("/{movieId}")
-    public ResponseEntity<IMDbMovieDTO> getMovieById(@PathVariable("movieId") String movieId) {
-        return ResponseEntity.ok(ImmutableIMDbMovieDTO
-                .builder()
-                .name("first")
-                .rating("5 stars")
-                .description("first movie")
-                .releaseDate("22 Jun 2001")
-                .iMDbRating("6/10")
-                .runTime("2 hours")
-                .build());
+    public ResponseEntity<ImmutableIMDbMovieDTO> getMovieById(@PathVariable("movieId") String movieId) {
+        return movieClient.getMovie(movieId)
+                .map(val -> val.map(movie -> ImmutableIMDbMovieDTO
+                        .builder()
+                        .name("first")
+                        .rating("5 stars")
+                        .description("first movie")
+                        .releaseDate("22 Jun 2001")
+                        .iMDbRating("6/10")
+                        .runTime("2 hours")
+                        .build()))
+                .map(responseBody -> responseBody.map(ResponseEntity::ok).getOrElse(ResponseEntity.notFound().build()))
+                .getOrElseThrow(Function.identity());
     }
 
+    @Operation(summary = "Find movie times by id", description = "Returns a single movie times", operationId = "getMovieTimesById")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "404", description = "Movie not found"),

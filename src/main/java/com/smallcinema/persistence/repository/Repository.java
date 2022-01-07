@@ -1,6 +1,5 @@
 package com.smallcinema.persistence.repository;
 
-import com.smallcinema.api.dto.Error;
 import com.smallcinema.domain.model.Movie;
 import com.smallcinema.domain.model.ServiceError;
 import io.vavr.control.Either;

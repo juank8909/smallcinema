@@ -20,6 +20,9 @@ management:
       show-details: always
       show-components: always
 logging.level.root: INFO
+resource:
+  OMDb-movies-url: ${OMDB_MOVIES_URL}
+  OMDb-apiKey: ${OMDB_API_KEY}
 ---
 ## Profile for local executions through IDE or mvn CLI
 spring:
@@ -29,3 +32,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: mysecretpassword
+resource:
+  OMDb-movies-url: http://www.omdbapi.com/?apikey=
+  OMDb-apiKey: e4f33820
