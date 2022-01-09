@@ -1,18 +1,18 @@
 package com.smallcinema.client.dto;
 
-public class OMDbMovieDTO {
+public class OMDbMovieClientDTO {
 
-    private String title;
+    private String Title;
     private String plot;
     private String released;
     private String imdbRating;
     private String runtime;
 
-    public OMDbMovieDTO() {
+    public OMDbMovieClientDTO() {
     }
 
-    public OMDbMovieDTO(String title, String plot, String released, String imdbRating, String runtime) {
-        this.title = title;
+    public OMDbMovieClientDTO(String title, String plot, String released, String imdbRating, String runtime) {
+        this.Title = title;
         this.plot = plot;
         this.released = released;
         this.imdbRating = imdbRating;
@@ -20,7 +20,7 @@ public class OMDbMovieDTO {
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public String getPlot() {
@@ -40,7 +40,7 @@ public class OMDbMovieDTO {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     public void setPlot(String plot) {

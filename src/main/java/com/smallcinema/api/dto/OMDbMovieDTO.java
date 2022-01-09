@@ -1,21 +1,45 @@
 package com.smallcinema.api.dto;
 
-import org.immutables.value.Value;
-import org.jetbrains.annotations.Nullable;
+public class OMDbMovieDTO {
 
-import java.time.OffsetDateTime;
+    private String title;
 
-@Value.Immutable
-public interface OMDbMovieDTO {
+    private String plot;
 
-    String getTitle();
+    private String released;
 
-    String getPlot();
+    private String iMDbRating;
 
-    String getReleased();
+    private String runTime;
 
-    String getIMDbRating();
+    public OMDbMovieDTO() {
+    }
 
-    String getRunTime();
+    public OMDbMovieDTO(String title, String plot, String released, String iMDbRating, String runTime) {
+        this.title = title;
+        this.plot = plot;
+        this.released = released;
+        this.iMDbRating = iMDbRating;
+        this.runTime = runTime;
+    }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public String getReleased() {
+        return released;
+    }
+
+    public String getiMDbRating() {
+        return iMDbRating;
+    }
+
+    public String getRunTime() {
+        return runTime;
+    }
 }

@@ -1,15 +1,26 @@
 package com.smallcinema.api.dto;
 
-import io.vavr.collection.List;
-import org.immutables.value.Value;
+import java.util.List;
 
-import javax.annotation.Nullable;
+public class MovieShowTimesDTO {
 
-@Value.Immutable
-public interface MovieShowTimesDTO {
+    private String title;
 
-    String getName();
+    private List<String> showTimes;
 
-    List<String> getShowTimes();
+    public MovieShowTimesDTO() {
+    }
 
+    public MovieShowTimesDTO(String title, List<String> showTimes) {
+        this.title = title;
+        this.showTimes = showTimes;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public List<String> getShowTimes() {
+        return showTimes;
+    }
 }

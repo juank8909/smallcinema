@@ -2,7 +2,7 @@ package com.smallcinema.api.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smallcinema.api.dto.*;
-import com.smallcinema.client.dto.OMDbMovieDTO;
+import com.smallcinema.client.dto.OMDbMovieClientDTO;
 import com.smallcinema.domain.model.ImmutableMovie;
 import com.smallcinema.domain.model.Movie;
 import io.vavr.collection.List;
@@ -18,12 +18,10 @@ public class Mapper {
     private static final ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
 
     public static final Function<Option<Movie>, Option<MovieShowTimesDTO>> movieToMovieShowTimesDTO = opt -> (
-            opt.map(it-> ImmutableMovieShowTimesDTO
-                            .builder()
-                            .name(it.getTitle())
-                            .showTimes(it.getShowTimes())
-                            .build()
-                    )
+            opt.map(it-> new MovieShowTimesDTO(
+                    it.getTitle(),
+                    it.getShowTimes().toJavaList()
+                    ))
     );
 
     public static final Function<Option<Movie>, Option<MovieDTO>> movieToMovieDTO = opt -> (
@@ -37,15 +35,14 @@ public class Mapper {
             )
     );
 
-    public static final Function<Option<OMDbMovieDTO>, Option<ImmutableOMDbMovieDTO>> movieFromClient = opt -> (
-            opt.map(movie-> ImmutableOMDbMovieDTO
-                    .builder()
-                    .title(movie.getTitle())
-                    .plot(movie.getPlot())
-                    .released(movie.getReleased())
-                    .iMDbRating(movie.getImdbRating())
-                    .runTime(movie.getRuntime())
-                    .build()
+    public static final Function<Option<OMDbMovieClientDTO>, Option<OMDbMovieDTO>> movieFromClient = opt -> (
+            opt.map(movie-> new OMDbMovieDTO(
+                    movie.getTitle(),
+                    movie.getPlot(),
+                    movie.getReleased(),
+                    movie.getImdbRating(),
+                    movie.getRuntime()
+                    )
             )
     );
 

@@ -1,8 +1,8 @@
 package com.smallcinema.api.controllers;
 
-import com.smallcinema.api.dto.ImmutableOMDbMovieDTO;
 import com.smallcinema.api.dto.MovieDTO;
 import com.smallcinema.api.dto.MovieShowTimesDTO;
+import com.smallcinema.api.dto.OMDbMovieDTO;
 import com.smallcinema.api.dto.RateMovieDTO;
 import com.smallcinema.client.MovieClient;
 import com.smallcinema.domain.model.ServiceError;
@@ -43,7 +43,7 @@ public class MoviesApi {
             @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
     @GetMapping("/{movieId}")
-    public ResponseEntity<ImmutableOMDbMovieDTO> getMovieById(@PathVariable(value = "movieId") String movieId) {
+    public ResponseEntity<OMDbMovieDTO> getMovieById(@PathVariable(value = "movieId") String movieId) {
         return movieClient.getMovie(movieId)
                 .map(Mapper.movieFromClient)
                 .map(responseBody -> responseBody.map(ResponseEntity::ok).getOrElse(ResponseEntity.notFound().build()))
