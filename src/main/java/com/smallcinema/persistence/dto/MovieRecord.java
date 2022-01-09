@@ -12,7 +12,7 @@ public interface MovieRecord {
 
     List<String> getShowTimes();
 
-    Long getPrice();
+    Double getPrice();
 
     String getReview();
 

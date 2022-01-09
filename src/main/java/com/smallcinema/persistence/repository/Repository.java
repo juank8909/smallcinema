@@ -10,7 +10,7 @@ public interface Repository {
 
     Either<ServiceError, MovieRecord> updateTimeShowsAndPrices(Movie movie);
 
-    Option<MovieRecord> getMovie(String movieId);
+    Either<ServiceError, Option<MovieRecord>> getMovie(String movieId);
 
     Either<ServiceError, MovieRecord> rateMovie(String movieRate, String movieId);
 

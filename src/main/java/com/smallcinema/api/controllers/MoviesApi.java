@@ -2,6 +2,7 @@ package com.smallcinema.api.controllers;
 
 import com.smallcinema.api.dto.ImmutableOMDbMovieDTO;
 import com.smallcinema.api.dto.ImmutableMovieDTO;
+import com.smallcinema.api.dto.MovieShowTimesDTO;
 import com.smallcinema.client.MovieClient;
 import com.smallcinema.domain.model.ServiceError;
 import com.smallcinema.domain.service.MovieService;
@@ -44,16 +45,7 @@ public class MoviesApi {
     @GetMapping("/{movieId}")
     public ResponseEntity<ImmutableOMDbMovieDTO> getMovieById(@PathVariable(value = "movieId") String movieId) {
         return movieClient.getMovie(movieId.substring(8))
-                .map(val -> val.map(movie -> {
-                    System.out.println(movie.getTitle());
-                    return ImmutableOMDbMovieDTO
-                        .builder()
-                        .title(movie.getTitle())
-                        .plot(movie.getPlot())
-                        .released(movie.getReleased())
-                        .iMDbRating(movie.getImdbRating())
-                        .runTime(movie.getRuntime())
-                        .build();}))
+                .map(Mapper.movieFromClient)
                 .map(responseBody -> responseBody.map(ResponseEntity::ok).getOrElse(ResponseEntity.notFound().build()))
                 .getOrElseThrow(Function.identity());
     }
@@ -65,15 +57,9 @@ public class MoviesApi {
             @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
     @GetMapping("/movietimes/{movieId}")
-    public ResponseEntity<ImmutableMovieDTO> getMovieTimesById(@PathVariable(value = "movieId") String movieId) {
-        return this.movieService.getMovie(movieId)
-                .map(a -> a.map(movie -> ImmutableMovieDTO
-                        .builder()
-                        .name(movie.getTitle())
-                        .showTimes( movie.getShowTimes())
-                        .price(23.0)
-                        .build()
-                ))
+    public ResponseEntity<MovieShowTimesDTO> getMovieTimesById(@PathVariable(value = "movieId") String movieId) {
+        return this.movieService.getMovie(movieId.substring(8))
+                .map(Mapper.movieToMovieShowTimesDTO)
                 .map(responseBody -> responseBody.map(ResponseEntity::ok).getOrElse(ResponseEntity.notFound().build()))
                 .getOrElseThrow(Function.identity());
     }

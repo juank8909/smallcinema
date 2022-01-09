@@ -27,16 +27,17 @@ public class MovieService {
         this.dbRepository = dbRepository;
     }
 
-    public Either<ServiceError, Movie> updateShowTimesAndPrices(Movie movie){
+    public Either<ServiceError, Option<Movie>> updateShowTimesAndPrices(Movie movie){
        // return dbRepository.updateTimeShowsAndPrices(movie);
         return null;
     }
 
-    public Either<ServiceError, Option<MovieRecord>> getMovie(String movieId){
-        return Either.right( dbRepository.getMovie(movieId));
+    public Either<ServiceError, Option<Movie>> getMovie(String movieId){
+        return dbRepository.getMovie(movieId)
+                .map(Mapper.movieRecordToMovie);
     }
 
-    public Either<ServiceError, Movie> rateMovie(String rate, String movieId){
+    public Either<ServiceError, Option<Movie>> rateMovie(String rate, String movieId){
         //return dbRepository.rateMovie(rate, movieId);
         return null;
     }
