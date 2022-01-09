@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.function.Function;
 
 
@@ -69,8 +70,8 @@ public class MoviesApi {
                 .map(a -> a.map(movie -> ImmutableMovieDTO
                         .builder()
                         .name(movie.getTitle())
-                        .showTimes(movie.getShowTimes())
-                        .price(movie.getPrice())
+                        .showTimes( movie.getShowTimes())
+                        .price(23.0)
                         .build()
                 ))
                 .map(responseBody -> responseBody.map(ResponseEntity::ok).getOrElse(ResponseEntity.notFound().build()))
