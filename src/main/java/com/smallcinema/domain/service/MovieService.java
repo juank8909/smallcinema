@@ -1,11 +1,8 @@
 package com.smallcinema.domain.service;
 
 
-import com.smallcinema.api.dto.Error;
-import com.smallcinema.domain.model.ImmutableMovie;
 import com.smallcinema.domain.model.Movie;
 import com.smallcinema.domain.model.ServiceError;
-import com.smallcinema.persistence.dto.MovieRecord;
 import com.smallcinema.persistence.repository.Repository;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
@@ -28,8 +25,8 @@ public class MovieService {
     }
 
     public Either<ServiceError, Option<Movie>> updateShowTimesAndPrices(Movie movie){
-       // return dbRepository.updateTimeShowsAndPrices(movie);
-        return null;
+        return dbRepository.updateTimeShowsAndPrices(movie.getId(), movie.getShowTimes(), movie.getPrice())
+                .map(Mapper.movieRecordToMovie);
     }
 
     public Either<ServiceError, Option<Movie>> getMovie(String movieId){
@@ -37,8 +34,8 @@ public class MovieService {
                 .map(Mapper.movieRecordToMovie);
     }
 
-    public Either<ServiceError, Option<Movie>> rateMovie(String rate, String movieId){
-        //return dbRepository.rateMovie(rate, movieId);
-        return null;
+    public Either<ServiceError, Option<Movie>> rateMovie(int rate, String movieId){
+        return dbRepository.rateMovie(rate, movieId)
+                .map(Mapper.movieRecordToMovie);
     }
 }

@@ -5,7 +5,7 @@ import com.smallcinema.api.dto.*;
 import com.smallcinema.client.dto.OMDbMovieDTO;
 import com.smallcinema.domain.model.ImmutableMovie;
 import com.smallcinema.domain.model.Movie;
-import com.smallcinema.persistence.dto.MovieRecord;
+import io.vavr.collection.List;
 import io.vavr.control.Option;
 
 import java.util.function.Function;
@@ -26,6 +26,17 @@ public class Mapper {
                     )
     );
 
+    public static final Function<Option<Movie>, Option<MovieDTO>> movieToMovieDTO = opt -> (
+            opt.map(it-> new MovieDTO(
+                    it.getId(),
+                    it.getTitle(),
+                    it.getShowTimes().toJavaList(),
+                    it.getPrice(),
+                    it.getRate()
+                    )
+            )
+    );
+
     public static final Function<Option<OMDbMovieDTO>, Option<ImmutableOMDbMovieDTO>> movieFromClient = opt -> (
             opt.map(movie-> ImmutableOMDbMovieDTO
                     .builder()
@@ -37,4 +48,16 @@ public class Mapper {
                     .build()
             )
     );
+
+    public static final Movie movieDTOFToMovie(MovieDTO movie, String movieId) {
+       return ImmutableMovie
+                .builder()
+                .title(movie.getId())
+                .id(movieId)
+                .price(movie.getPrice())
+                .rate(movie.getRate())
+                .showTimes(List.ofAll(movie.getShowTimes()))
+                .build();
+    }
+
 }

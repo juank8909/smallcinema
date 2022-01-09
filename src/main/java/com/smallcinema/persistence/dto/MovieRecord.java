@@ -14,6 +14,6 @@ public interface MovieRecord {
 
     Double getPrice();
 
-    String getReview();
+    Integer getRate();
 
 }

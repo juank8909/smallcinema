@@ -1,8 +1,9 @@
 package com.smallcinema.api.controllers;
 
 import com.smallcinema.api.dto.ImmutableOMDbMovieDTO;
-import com.smallcinema.api.dto.ImmutableMovieDTO;
+import com.smallcinema.api.dto.MovieDTO;
 import com.smallcinema.api.dto.MovieShowTimesDTO;
+import com.smallcinema.api.dto.RateMovieDTO;
 import com.smallcinema.client.MovieClient;
 import com.smallcinema.domain.model.ServiceError;
 import com.smallcinema.domain.service.MovieService;
@@ -18,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.List;
 import java.util.function.Function;
 
 
@@ -36,7 +36,7 @@ public class MoviesApi {
         this.movieClient = movieClient;
     }
 
-    @Operation(summary = "Find movie by id", description = "Returns a single movie", operationId = "getMovieById")
+    @Operation(summary = "Find movie by id at OMDb API", description = "Returns a single movie", operationId = "getMovieById")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "404", description = "Movie not found"),
@@ -44,8 +44,36 @@ public class MoviesApi {
     })
     @GetMapping("/{movieId}")
     public ResponseEntity<ImmutableOMDbMovieDTO> getMovieById(@PathVariable(value = "movieId") String movieId) {
-        return movieClient.getMovie(movieId.substring(8))
+        return movieClient.getMovie(movieId)
                 .map(Mapper.movieFromClient)
+                .map(responseBody -> responseBody.map(ResponseEntity::ok).getOrElse(ResponseEntity.notFound().build()))
+                .getOrElseThrow(Function.identity());
+    }
+
+    @Operation(summary = "Updates show times and prices", description = "Returns a single movie", operationId = "updateShowTimesAndPricesMovieId")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "404", description = "Movie not found"),
+            @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content(schema = @Schema(implementation = Error.class)))
+    })
+    @PutMapping("/{movieId}")
+    public ResponseEntity<MovieDTO> updateShowTimesAndPricesMovieId(@RequestBody MovieDTO movie, @PathVariable(value = "movieId") String movieId) {
+        return movieService.updateShowTimesAndPrices(Mapper.movieDTOFToMovie(movie, movieId))
+                .map(Mapper.movieToMovieDTO)
+                .map(responseBody -> responseBody.map(ResponseEntity::ok).getOrElse(ResponseEntity.notFound().build()))
+                .getOrElseThrow(Function.identity());
+    }
+
+    @Operation(summary = "Rates a movie", description = "Returns a single movie", operationId = "rateMovie")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "404", description = "Movie not found"),
+            @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content(schema = @Schema(implementation = Error.class)))
+    })
+    @PostMapping("/{movieId}/rate")
+    public ResponseEntity<MovieDTO> rateMovie(@RequestBody RateMovieDTO movie, @PathVariable(value = "movieId") String movieId) {
+        return movieService.rateMovie(movie.getRate(), movieId)
+                .map(Mapper.movieToMovieDTO)
                 .map(responseBody -> responseBody.map(ResponseEntity::ok).getOrElse(ResponseEntity.notFound().build()))
                 .getOrElseThrow(Function.identity());
     }
@@ -56,9 +84,9 @@ public class MoviesApi {
             @ApiResponse(responseCode = "404", description = "Movie not found"),
             @ApiResponse(responseCode = "500", description = "Internal Error", content = @Content(schema = @Schema(implementation = Error.class)))
     })
-    @GetMapping("/movietimes/{movieId}")
+    @GetMapping("/{movieId}/times")
     public ResponseEntity<MovieShowTimesDTO> getMovieTimesById(@PathVariable(value = "movieId") String movieId) {
-        return this.movieService.getMovie(movieId.substring(8))
+        return this.movieService.getMovie(movieId)
                 .map(Mapper.movieToMovieShowTimesDTO)
                 .map(responseBody -> responseBody.map(ResponseEntity::ok).getOrElse(ResponseEntity.notFound().build()))
                 .getOrElseThrow(Function.identity());

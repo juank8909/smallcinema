@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import static com.smallcinema.persistence.dto.jooq.small_cinema.tables.Movie.*;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -32,8 +33,15 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public Either<ServiceError, MovieRecord> updateTimeShowsAndPrices(Movie movie) {
-        return null;
+    public Either<ServiceError, Option<MovieRecord>>  updateTimeShowsAndPrices(String movieId, List<String> showTimes, Double price) {
+
+        return  Either.right( Option.of(dsl.update(MOVIE)
+                .set(MOVIE.SHOW_TIMES, showTimes.toJavaList().toArray(new String[0]))
+                .set(MOVIE.PRICE, new BigDecimal(price))
+                .where(MOVIE.ID.eq(movieId))
+                .returningResult()
+                .fetchOne(this::movieRecordFormJooq))
+        );
     }
 
     @Override
@@ -47,8 +55,13 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public Either<ServiceError, MovieRecord> rateMovie(String movieRate, String movieId) {
-        return null;
+    public Either<ServiceError, Option<MovieRecord>> rateMovie(int movieRate, String movieId) {
+        return  Either.right( Option.of(dsl.update(MOVIE)
+                .set(MOVIE.REVIEW, movieRate)
+                .where(MOVIE.ID.eq(movieId))
+                .returningResult()
+                .fetchOne(this::movieRecordFormJooq))
+        );
     }
 
     private MovieRecord movieRecordFormJooq(Record jooqRecord){
@@ -56,7 +69,7 @@ public class RepositoryImpl implements Repository {
                 .builder()
                 .title(jooqRecord.get(MOVIE.TITLE))
                 .id(jooqRecord.get(MOVIE.ID))
-                .review(jooqRecord.get(MOVIE.REVIEW).toString())
+                .rate(jooqRecord.get(MOVIE.REVIEW))
                 .price((jooqRecord.get(MOVIE.PRICE).doubleValue()))
                 .showTimes(List.ofAll(Arrays.stream(jooqRecord.get(MOVIE.SHOW_TIMES)).collect(Collectors.toList())).map(Object::toString))
                 .build();

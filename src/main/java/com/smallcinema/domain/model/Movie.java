@@ -18,5 +18,5 @@ public interface Movie {
 
     Double getPrice();
 
-    String getReview();
+    Integer getRate();
 }

@@ -19,7 +19,7 @@ public class Mapper {
     public static final Function<Option<MovieRecord>, Option<Movie>> movieRecordToMovie = opt -> (
             opt.map(it-> ImmutableMovie
                             .builder()
-                            .review(it.getReview())
+                            .rate(it.getRate())
                             .id(it.getId())
                             .title(it.getTitle())
                             .showTimes(it.getShowTimes())
