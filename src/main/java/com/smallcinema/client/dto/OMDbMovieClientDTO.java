@@ -23,36 +23,36 @@ public class OMDbMovieClientDTO {
         return Title;
     }
 
-    public String getPlot() {
-        return plot;
-    }
-
-    public String getReleased() {
-        return released;
-    }
-
-    public String getImdbRating() {
-        return imdbRating;
-    }
-
-    public String getRuntime() {
-        return runtime;
-    }
-
     public void setTitle(String title) {
         this.Title = title;
+    }
+
+    public String getPlot() {
+        return plot;
     }
 
     public void setPlot(String plot) {
         this.plot = plot;
     }
 
+    public String getReleased() {
+        return released;
+    }
+
     public void setReleased(String released) {
         this.released = released;
     }
 
+    public String getImdbRating() {
+        return imdbRating;
+    }
+
     public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
+    }
+
+    public String getRuntime() {
+        return runtime;
     }
 
     public void setRuntime(String runtime) {

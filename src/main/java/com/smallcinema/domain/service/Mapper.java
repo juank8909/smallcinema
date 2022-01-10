@@ -7,24 +7,22 @@ import com.smallcinema.persistence.dto.MovieRecord;
 import io.vavr.control.Option;
 
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Mapper {
 
-    private Mapper() {
-    }
-
+    public static final Function<Option<MovieRecord>, Option<Movie>> movieRecordToMovie = opt -> (
+            opt.map(it -> ImmutableMovie
+                    .builder()
+                    .rate(it.getRate())
+                    .id(it.getId())
+                    .title(it.getTitle())
+                    .showTimes(it.getShowTimes())
+                    .price(it.getPrice().doubleValue())
+                    .build()
+            )
+    );
     private static final ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
 
-    public static final Function<Option<MovieRecord>, Option<Movie>> movieRecordToMovie = opt -> (
-            opt.map(it-> ImmutableMovie
-                            .builder()
-                            .rate(it.getRate())
-                            .id(it.getId())
-                            .title(it.getTitle())
-                            .showTimes(it.getShowTimes())
-                            .price(it.getPrice().doubleValue())
-                            .build()
-                    )
-    );
+    private Mapper() {
+    }
 }

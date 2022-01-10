@@ -1,7 +1,6 @@
 package com.smallcinema.api.dto;
 
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class MovieDTO {

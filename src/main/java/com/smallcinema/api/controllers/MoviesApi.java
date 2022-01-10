@@ -31,7 +31,7 @@ public class MoviesApi {
     private final MovieClient movieClient;
 
     @Inject
-    public MoviesApi(MovieService movieService, MovieClient movieClient){
+    public MoviesApi(MovieService movieService, MovieClient movieClient) {
         this.movieService = movieService;
         this.movieClient = movieClient;
     }

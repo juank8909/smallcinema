@@ -1,8 +1,6 @@
 package com.smallcinema.api.dto;
 
 
-import java.util.List;
-
 public class RateMovieDTO {
 
     private int rate;
