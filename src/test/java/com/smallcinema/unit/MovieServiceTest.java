@@ -37,7 +37,7 @@ public class MovieServiceTest {
 
     @Test
     @DisplayName("get movie")
-    public void linkSingleDebtor() {
+    public void getMovie() {
 
         MovieRecord movie = ImmutableMovieRecord.builder()
                 .id("1234")
