@@ -1,6 +1,5 @@
 package com.smallcinema.integration;
 
-import com.smallcinema.api.dto.RateMovieDTO;
 import com.smallcinema.config.PGContainer;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -14,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -24,16 +22,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
 import javax.inject.Inject;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -50,9 +46,6 @@ public class IntegrationTest {
 
     @Container
     public static PGContainer postgreSQLContainer = PGContainer.getInstance();
-
-    @Inject
-    protected NamedParameterJdbcTemplate jdbcTemplate;
 
     static class Initializer implements ApplicationContextInitializer<GenericApplicationContext> {
         public void initialize(GenericApplicationContext configurableApplicationContext) {
@@ -97,7 +90,5 @@ public class IntegrationTest {
         });
 
     }
-
-
 
 }
