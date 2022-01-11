@@ -11,4 +11,4 @@ spring:
     password: ${DATABASE_PASSWORD}
 resource:
   OMDb-movies-url: http://www.omdbapi.com/?apikey=
-  OMDb-apiKey: e4f33820
+  OMDb-apiKey: ${OMDB_API_KEY}
