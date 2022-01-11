@@ -39,7 +39,7 @@ public class MovieClient {
                 ));
             else return Either.right(Option.none());
         } catch (JsonProcessingException e) {
-            return Either.left(new ServiceError("CLIERR", "An error occurred when trying to get the movie" +
+            return Either.left(new ServiceError("CLIERR", "An error occurred when trying to deserialize the movie" +
                     e.getMessage()));
         }
     }
