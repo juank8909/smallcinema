@@ -1,5 +1,6 @@
 package com.smallcinema.integration;
 
+import com.smallcinema.api.dto.RateMovieDTO;
 import com.smallcinema.config.PGContainer;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -10,9 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -25,19 +24,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import javax.inject.Inject;
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Map;
-
-import static com.atlassian.oai.validator.mockmvc.OpenApiValidationMatchers.openApi;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
+import javax.inject.Inject;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -74,12 +70,30 @@ public class IntegrationTest {
 
     @Test
     @DisplayName("Get a movie times show given a movieID")
-    void test03() {
+    void test01() {
         assertDoesNotThrow(() -> {
             mockMvc.perform(get("/movie/{movieId}/times", "tt0232500")).andDo(print())
+                    .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
-                    .andExpect();
-            //.andExpect(jsonPath("$._internal_id").isEmpty()).andExpect(jsonPath("$.debts").exists());
+                    .andExpect(jsonPath("$.title").exists())
+                    .andExpect(jsonPath("$.showTimes").exists());
+        });
+
+    }
+
+    @Test
+    @DisplayName("Rate a movie")
+    void test02() {
+        assertDoesNotThrow(() -> {
+            mockMvc.perform(post("/movie/{movieId}/rate", "tt0232500")
+                    .contentType(APPLICATION_JSON)
+                    .content("{\"rate\":5}")).andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id").exists())
+                    .andExpect(jsonPath("$.title").exists())
+                    .andExpect(jsonPath("$.showTimes").exists())
+                    .andExpect(jsonPath("$.price").exists())
+                    .andExpect(jsonPath("$.rate").exists());
         });
 
     }
