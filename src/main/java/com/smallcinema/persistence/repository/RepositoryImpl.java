@@ -38,7 +38,7 @@ public class RepositoryImpl implements Repository {
                 .set(MOVIE.PRICE, new BigDecimal(price))
                 .where(MOVIE.ID.eq(movieId))
                 .returningResult()
-                .fetchOne(this::movieRecordFormJooq))
+                .fetchOne(this::movieRecordFromJooq))
         );
     }
 
@@ -47,7 +47,7 @@ public class RepositoryImpl implements Repository {
         return Either.right(Option.ofOptional(dsl.select(MOVIE.fields())
                 .from(MOVIE)
                 .where(MOVIE.ID.equal(movieId))
-                .fetch(this::movieRecordFormJooq)
+                .fetch(this::movieRecordFromJooq)
                 .stream().findFirst()
         ));
     }
@@ -58,11 +58,11 @@ public class RepositoryImpl implements Repository {
                 .set(MOVIE.REVIEW, movieRate)
                 .where(MOVIE.ID.eq(movieId))
                 .returningResult()
-                .fetchOne(this::movieRecordFormJooq))
+                .fetchOne(this::movieRecordFromJooq))
         );
     }
 
-    private MovieRecord movieRecordFormJooq(Record jooqRecord) {
+    private MovieRecord movieRecordFromJooq(Record jooqRecord) {
         return ImmutableMovieRecord
                 .builder()
                 .title(jooqRecord.get(MOVIE.TITLE))

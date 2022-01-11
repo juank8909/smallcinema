@@ -26,7 +26,7 @@ public class MovieClient {
         // .onFailure(err -> Either.left(new ServiceError("CLIERR, err.getMessage()"))) types are not matching
         Future<Either<ServiceError, Option<OMDbMovieClientDTO>>> future =
                 Future.of(() -> Option.of(restTemplate.getForObject(resource + movieId, OMDbMovieClientDTO.class)))
-                        .map(val -> Either.right(val));
+                        .map(Either::right);
         return future.isFailure()
                 ? Either.left(new ServiceError("CLIERR", "An error occurred when trying to get the movie"))
                 : future.get();
