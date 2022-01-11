@@ -19,6 +19,7 @@
         <jooq.version>3.15.3</jooq.version>
         <jooq.db.version>1.0.3</jooq.db.version>
         <swagger-request-validator.version>2.20.0</swagger-request-validator.version>
+        <testcontainers.version>1.16.0</testcontainers.version>
     </properties>
 
     <parent>
@@ -141,6 +142,17 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${testcontainers.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
