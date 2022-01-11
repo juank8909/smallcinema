@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 
@@ -57,10 +58,10 @@ public class MovieServiceTest {
         Mockito.when(repo.getMovie(anyString())).thenReturn(Either.right(Option.of(movie)));
 
         Either<ServiceError, Option<Movie>> movieResult = service.getMovie("1234");
-        assertTrue(movieResult.get().get().getId().equals(expectedMovie.getId()));
-        assertTrue(movieResult.get().get().getTitle().equals(expectedMovie.getTitle()));
-        assertTrue(movieResult.get().get().getShowTimes().equals(expectedMovie.getShowTimes()));
-        assertTrue(movieResult.get().get().getPrice().equals(expectedMovie.getPrice()));
-        assertTrue(movieResult.get().get().getRate().equals(expectedMovie.getRate()));
+        assertEquals(movieResult.get().get().getId(),expectedMovie.getId());
+        assertEquals(movieResult.get().get().getTitle(),expectedMovie.getTitle());
+        assertEquals(movieResult.get().get().getShowTimes(),expectedMovie.getShowTimes());
+        assertEquals(movieResult.get().get().getPrice(),expectedMovie.getPrice());
+        assertEquals(movieResult.get().get().getRate(),expectedMovie.getRate());
     }
 }
