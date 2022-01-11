@@ -1,6 +1,5 @@
 package com.smallcinema.domain.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smallcinema.domain.model.ImmutableMovie;
 import com.smallcinema.domain.model.Movie;
 import com.smallcinema.persistence.dto.MovieRecord;
