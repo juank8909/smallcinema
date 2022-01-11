@@ -37,7 +37,8 @@ public class MovieClient {
                                 root.path("Runtime").asText()
                         )
                 ));
-            else return Either.right(Option.none());
+            else return Either.left(new ServiceError("CLIERR", "An error occurred when trying to get the movie: " +
+                    root.path("Error").asText()));
         } catch (JsonProcessingException e) {
             return Either.left(new ServiceError("CLIERR", "An error occurred when trying to deserialize the movie" +
                     e.getMessage()));
