@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  application:
+    name: SmallCinema
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DATABASE_JDBC_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+resource:
+  OMDb-movies-url: http://www.omdbapi.com/?apikey=
+  OMDb-apiKey: e4f33820
