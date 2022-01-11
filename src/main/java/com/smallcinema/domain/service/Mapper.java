@@ -21,8 +21,4 @@ public class Mapper {
                     .build()
             )
     );
-    private static final ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
-
-    private Mapper() {
-    }
 }

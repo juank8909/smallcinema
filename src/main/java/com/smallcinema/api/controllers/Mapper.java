@@ -1,6 +1,5 @@
 package com.smallcinema.api.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smallcinema.api.dto.MovieDTO;
 import com.smallcinema.api.dto.MovieShowTimesDTO;
 import com.smallcinema.api.dto.OMDbMovieDTO;
@@ -40,10 +39,6 @@ public class Mapper {
                     )
             )
     );
-    private static final ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
-
-    private Mapper() {
-    }
 
     public static final Movie movieDTOFToMovie(MovieDTO movie, String movieId) {
         return ImmutableMovie
