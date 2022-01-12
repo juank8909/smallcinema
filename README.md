@@ -16,7 +16,7 @@ to a small cinema which only plays  [Fast & Furious movies](https://en.wikipedia
 
 ## Stack 📚
 
-This project uses Spring boot 2.5.x, PostgresQL 13.x, Java 11, Maven, Immutables 2.8.x, VAVR 0.10.4 and JOOQ 3.16.1
+This project uses Spring boot 2.5.x, PostgresQL 14.x, Java 11, Maven, Immutables 2.8.x, VAVR 0.10.4 and JOOQ 3.16.1
 
 ## Choices
 
