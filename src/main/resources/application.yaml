@@ -29,9 +29,9 @@ spring:
   config.activate.on-profile: local
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: mysecretpassword
+    url: [your-database-url] #example: jdbc:postgresql://localhost:5432/postgres
+    username: [your-database-username] # example: postgres
+    password: [your-database-password] #example: mysecretpassword
 resource:
   OMDb-movies-url: http://www.omdbapi.com/?apikey=
-  OMDb-apiKey: e4f33820
+  OMDb-apiKey: [your-OMDb-apiKey]
