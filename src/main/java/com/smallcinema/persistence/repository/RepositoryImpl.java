@@ -10,6 +10,8 @@ import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 import static com.smallcinema.persistence.dto.jooq.small_cinema.tables.Movie.MOVIE;
 
 @org.springframework.stereotype.Repository
+@Transactional(propagation = Propagation.REQUIRED)
 public class RepositoryImpl implements Repository {
 
     private final Logger log = LoggerFactory.getLogger(RepositoryImpl.class);

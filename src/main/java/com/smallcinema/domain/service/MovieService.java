@@ -9,10 +9,13 @@ import io.vavr.control.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
 @Service
+@Transactional(propagation = Propagation.NESTED)
 public class MovieService {
 
     private final Logger log = LoggerFactory.getLogger(MovieService.class);

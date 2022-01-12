@@ -75,6 +75,7 @@ to achieve this, let's run `/resources/db/migration/initial_schema.sql` in your 
 
 after everything is set up, let's run the app with:
 ````bash
+mvn clean compile
 mvn spring-boot:run -Dspring-boot.run.profiles=local
 ````
 
