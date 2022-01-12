@@ -24,7 +24,7 @@ public class MovieClient {
 
     public Either<ServiceError, Option<OMDbMovieClientDTO>> getMovie(String movieId) {
 
-        // TODO: do this using Future.of()
+        // TODO: do this using Future.of() instead of try.. catch
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(resource + movieId, String.class);
             ObjectMapper mapper = new ObjectMapper();
